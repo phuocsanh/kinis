@@ -10,16 +10,18 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.soloader.SoLoader
-
+import com.kinis.landmarkspose.LandmarksPosePluginPackage
 class MainApplication : Application(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost =
       object : DefaultReactNativeHost(this) {
-        override fun getPackages(): List<ReactPackage> =
-            PackageList(this).packages.apply {
-              // Packages that cannot be autolinked yet can be added manually here, for example:
-              // add(MyReactNativePackage())
-            }
+    override fun getPackages(): List<ReactPackage> {
+          // Lấy danh sách packages hiện có
+          val packages = PackageList(this).packages
+          // Thêm plugin của bạn vào danh sách
+          return packages + LandmarksPosePluginPackage()
+        }
+
 
         override fun getJSMainModuleName(): String = "index"
 

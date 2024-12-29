@@ -5,7 +5,7 @@ require Pod::Executable.execute_command('node', ['-p',
     {paths: [process.argv[1]]},
   )', __dir__]).strip
 
-platform :ios, min_ios_version_supported
+platform :ios, 15.1
 prepare_react_native_project!
 
 linkage = ENV['USE_FRAMEWORKS']
@@ -16,7 +16,7 @@ end
 
 target 'kinis' do
   config = use_native_modules!
-
+  pod 'MediaPipeTasksVision', '0.10.14'
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.
@@ -36,5 +36,17 @@ target 'kinis' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+
+    #react-native-vision-camera
+    # Ghi đè phiên bản tối thiểu iOS cho react-native-vision-camera
+    installer.pods_project.targets.each do |target|
+      if target.name == 'react-native-vision-camera'
+        target.build_configurations.each do |config|
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.1'
+        end
+      end
+    end
+
+
   end
 end
