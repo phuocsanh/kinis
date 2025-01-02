@@ -1,7 +1,7 @@
 export const COLORS = {
   white: '#ffffff',
   black: '#000000',
-
+  red: '#FF0000',
   primary: '#F3742D',
   primary100: '#FDE8DC',
   secondary: '#FAB897',
@@ -11,6 +11,14 @@ export const COLORS = {
 
   border: '#ccc',
   antiFlashWhite: '#F1F1F1',
+  cultured: '#F8F8F8',
+  darkElectricBlue: '#556376',
+  shadowBlue: '#7C8BA1',
+  cadetGrey: '#96A2B3',
+  lightGray: '#CAD1D9',
+  cadetBlue: '#B0B9C6',
+  charcoal: '#334155',
+  frenchPuce: '#492000',
 
   bgSuccess: '#def1d7',
   bgWarning: '#fef7ec',

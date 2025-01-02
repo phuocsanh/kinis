@@ -2,12 +2,15 @@ import type {Size} from './type';
 import {isNumber} from 'lodash';
 import {Dimensions} from 'react-native';
 
-export const DESIGN_WIDTH = 428;
-export const DESIGN_HEIGHT = 926;
+export const DESIGN_WIDTH = 402;
+export const DESIGN_HEIGHT = 874;
+
+export const HEADER_HEIGHT = 120;
 
 export const {width, height} = Dimensions.get('screen');
 
-export const [shortDimension, longDimension] = width < height ? [width, height] : [height, width];
+export const [shortDimension, longDimension] =
+  width < height ? [width, height] : [height, width];
 
 export const hScale = <T extends Size>(size: T, baseDesign = DESIGN_WIDTH) => {
   if (typeof size === 'number') {
@@ -23,7 +26,11 @@ export const vScale = <T extends Size>(size: T, baseDesign = DESIGN_HEIGHT) => {
   return size;
 };
 
-export const fontScale = (size: number, factor = 0.25, baseDesign = DESIGN_WIDTH) => {
+export const fontScale = (
+  size: number,
+  factor = 0.25,
+  baseDesign = DESIGN_WIDTH,
+) => {
   if (size <= 12) {
     return size;
   }
@@ -38,25 +45,41 @@ export const reverseVScale = (size: number, baseDesign = DESIGN_HEIGHT) => {
   return (baseDesign / shortDimension) * size;
 };
 
-export const moderateHScale = <T extends Size>(size: T, factor = 0.5, baseDesign = DESIGN_WIDTH) => {
+export const moderateHScale = <T extends Size>(
+  size: T,
+  factor = 0.5,
+  baseDesign = DESIGN_WIDTH,
+) => {
   if (typeof size === 'number') {
     return size + ((hScale(size, baseDesign) as number) - size) * factor;
   }
   return size;
 };
 
-export const moderateVScale = <T extends Size>(size: T, factor = 0.5, baseDesign = DESIGN_HEIGHT) => {
+export const moderateVScale = <T extends Size>(
+  size: T,
+  factor = 0.5,
+  baseDesign = DESIGN_HEIGHT,
+) => {
   if (typeof size === 'number') {
     return size + ((vScale(size, baseDesign) as number) - size) * factor;
   }
   return size;
 };
 
-export const reverseModerateHScale = (size: number, factor = 0.5, baseDesign = DESIGN_WIDTH) => {
+export const reverseModerateHScale = (
+  size: number,
+  factor = 0.5,
+  baseDesign = DESIGN_WIDTH,
+) => {
   return size / (1 - factor + (factor * shortDimension) / baseDesign);
 };
 
-export const reverseModerateVScale = (size: number, factor = 0.5, baseDesign = DESIGN_HEIGHT) => {
+export const reverseModerateVScale = (
+  size: number,
+  factor = 0.5,
+  baseDesign = DESIGN_HEIGHT,
+) => {
   return size / (1 - factor + (factor * longDimension) / baseDesign);
 };
 

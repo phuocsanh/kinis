@@ -8,15 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* kinisTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* kinisTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-kinis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-kinis.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		7699B88040F8A987B510C191 /* libPods-kinis-kinisTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-kinis-kinisTests.a */; };
+		30A15FE1CB1AF0609E79322F /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D13294FD6F51E14AA7C547 /* ExpoModulesProvider.swift */; };
+		5945A83B4B01EB37B527B7F3 /* Pods_kinis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C3E43ECFB23B9BB9EB1458A /* Pods_kinis.framework */; };
 		812A0834B1DF403DA6053AD5 /* LandmarksPose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29ED66E2F626448593756B32 /* LandmarksPose.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		97528E1592C776BF9E5600FB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = D082C260587DA9B44CD50EB7 /* PrivacyInfo.xcprivacy */; };
 		985639EFF73944EE9C9949BF /* LandmarksPose.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E2C4D2E3647E586B3C941 /* LandmarksPose.m */; };
+		9DFF9A71E69E1F0742C836A6 /* Pods_kinis_kinisTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32EAEFB56B0ECDCE2E2E85FF /* Pods_kinis_kinisTests.framework */; };
+		CBB6A63F6E11F182480DBEBF /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A47A5ECE305A498EA0FB1D /* ExpoModulesProvider.swift */; };
+		D38D60A02D243144001CEA42 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D38D609F2D243144001CEA42 /* GoogleService-Info.plist */; };
+		E303FA53CAF14EFE83D2EDED /* Manrope-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C8E173B392E4290A4B376C8 /* Manrope-Bold.ttf */; };
+		B57015EAD9F541C29995AEF6 /* Manrope-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1D9ECB93707458EB219ECB4 /* Manrope-ExtraBold.ttf */; };
+		55D8E00F37DC4563A86AA78C /* Manrope-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC0EDECE284D4FA08D0A6589 /* Manrope-ExtraLight.ttf */; };
+		94084C66FD11469B9576BF79 /* Manrope-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A16641F4A4AD42A292480475 /* Manrope-Light.ttf */; };
+		CBB2B178BB094F5C95471093 /* Manrope-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86384BD69703446680B4E851 /* Manrope-Medium.ttf */; };
+		27476067EEE74886ADEAA655 /* Manrope-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 61DC2B9166D14C8ABF7A63CA /* Manrope-Regular.ttf */; };
+		523AD703036444E39ED95ED3 /* Manrope-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B39BDB82F2B41AF930E69E9 /* Manrope-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,16 +51,26 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = kinis/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = kinis/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = kinis/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-kinis-kinisTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-kinis-kinisTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C3E43ECFB23B9BB9EB1458A /* Pods_kinis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kinis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29ED66E2F626448593756B32 /* LandmarksPose.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; path = LandmarksPose.swift; sourceTree = "<group>"; };
+		32EAEFB56B0ECDCE2E2E85FF /* Pods_kinis_kinisTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kinis_kinisTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-kinis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kinis.debug.xcconfig"; path = "Target Support Files/Pods-kinis/Pods-kinis.debug.xcconfig"; sourceTree = "<group>"; };
+		50D13294FD6F51E14AA7C547 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-kinis/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-kinis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kinis.release.xcconfig"; path = "Target Support Files/Pods-kinis/Pods-kinis.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-kinis-kinisTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kinis-kinisTests.debug.xcconfig"; path = "Target Support Files/Pods-kinis-kinisTests/Pods-kinis-kinisTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-kinis.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-kinis.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = kinis/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-kinis-kinisTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kinis-kinisTests.release.xcconfig"; path = "Target Support Files/Pods-kinis-kinisTests/Pods-kinis-kinisTests.release.xcconfig"; sourceTree = "<group>"; };
+		C2A47A5ECE305A498EA0FB1D /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-kinis-kinisTests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		D082C260587DA9B44CD50EB7 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = kinis/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		D38D609F2D243144001CEA42 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		6C8E173B392E4290A4B376C8 /* Manrope-Bold.ttf */ = {isa = PBXFileReference; name = "Manrope-Bold.ttf"; path = "../src/assets/fonts/Manrope-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C1D9ECB93707458EB219ECB4 /* Manrope-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Manrope-ExtraBold.ttf"; path = "../src/assets/fonts/Manrope-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AC0EDECE284D4FA08D0A6589 /* Manrope-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Manrope-ExtraLight.ttf"; path = "../src/assets/fonts/Manrope-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A16641F4A4AD42A292480475 /* Manrope-Light.ttf */ = {isa = PBXFileReference; name = "Manrope-Light.ttf"; path = "../src/assets/fonts/Manrope-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		86384BD69703446680B4E851 /* Manrope-Medium.ttf */ = {isa = PBXFileReference; name = "Manrope-Medium.ttf"; path = "../src/assets/fonts/Manrope-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		61DC2B9166D14C8ABF7A63CA /* Manrope-Regular.ttf */ = {isa = PBXFileReference; name = "Manrope-Regular.ttf"; path = "../src/assets/fonts/Manrope-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2B39BDB82F2B41AF930E69E9 /* Manrope-SemiBold.ttf */ = {isa = PBXFileReference; name = "Manrope-SemiBold.ttf"; path = "../src/assets/fonts/Manrope-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-kinis-kinisTests.a in Frameworks */,
+				9DFF9A71E69E1F0742C836A6 /* Pods_kinis_kinisTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,7 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-kinis.a in Frameworks */,
+				5945A83B4B01EB37B527B7F3 /* Pods_kinis.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +110,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		088B099A71045FBA433517E9 /* kinis */ = {
+			isa = PBXGroup;
+			children = (
+				50D13294FD6F51E14AA7C547 /* ExpoModulesProvider.swift */,
+			);
+			name = kinis;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* kinis */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,8 +137,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-kinis.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-kinis-kinisTests.a */,
+				1C3E43ECFB23B9BB9EB1458A /* Pods_kinis.framework */,
+				32EAEFB56B0ECDCE2E2E85FF /* Pods_kinis_kinisTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -125,6 +153,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D38D609F2D243144001CEA42 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* kinis */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* kinisTests */,
@@ -132,6 +161,8 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
 				B9E8660C0DFA4682BA87C91C /* LandmarksPose */,
+				89686C829015347B41D6EE1A /* ExpoModulesProviders */,
+				A50C30B9098943B9B02F253E /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -145,6 +176,15 @@
 				00E356EE1AD99517003FC87E /* kinisTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		89686C829015347B41D6EE1A /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				088B099A71045FBA433517E9 /* kinis */,
+				D0DC2CD579377CCF021DDBA5 /* kinisTests */,
+			);
+			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
 		B9E8660C0DFA4682BA87C91C /* LandmarksPose */ = {
@@ -167,6 +207,29 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		D0DC2CD579377CCF021DDBA5 /* kinisTests */ = {
+			isa = PBXGroup;
+			children = (
+				C2A47A5ECE305A498EA0FB1D /* ExpoModulesProvider.swift */,
+			);
+			name = kinisTests;
+			sourceTree = "<group>";
+		};
+		A50C30B9098943B9B02F253E /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				6C8E173B392E4290A4B376C8 /* Manrope-Bold.ttf */,
+				C1D9ECB93707458EB219ECB4 /* Manrope-ExtraBold.ttf */,
+				AC0EDECE284D4FA08D0A6589 /* Manrope-ExtraLight.ttf */,
+				A16641F4A4AD42A292480475 /* Manrope-Light.ttf */,
+				86384BD69703446680B4E851 /* Manrope-Medium.ttf */,
+				61DC2B9166D14C8ABF7A63CA /* Manrope-Regular.ttf */,
+				2B39BDB82F2B41AF930E69E9 /* Manrope-SemiBold.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -175,6 +238,7 @@
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "kinisTests" */;
 			buildPhases = (
 				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
+				51E4B0000A182DADED44871C /* [Expo] Configure project */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -196,6 +260,7 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "kinis" */;
 			buildPhases = (
 				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				31E88191DBCFB9D352CDDBF1 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -261,8 +326,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				D38D60A02D243144001CEA42 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				97528E1592C776BF9E5600FB /* PrivacyInfo.xcprivacy in Resources */,
+				E303FA53CAF14EFE83D2EDED /* Manrope-Bold.ttf in Resources */,
+				B57015EAD9F541C29995AEF6 /* Manrope-ExtraBold.ttf in Resources */,
+				55D8E00F37DC4563A86AA78C /* Manrope-ExtraLight.ttf in Resources */,
+				94084C66FD11469B9576BF79 /* Manrope-Light.ttf in Resources */,
+				CBB2B178BB094F5C95471093 /* Manrope-Medium.ttf in Resources */,
+				27476067EEE74886ADEAA655 /* Manrope-Regular.ttf in Resources */,
+				523AD703036444E39ED95ED3 /* Manrope-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,7 +356,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+			shellScript = "if [[ -f \"$PODS_ROOT/../.xcode.env\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env\"\nfi\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n# The project root by default is one level up from the ios directory\nexport PROJECT_ROOT=\"$PROJECT_DIR\"/..\n\nif [[ \"$CONFIGURATION\" = *Debug* ]]; then\n  export SKIP_BUNDLING=1\nfi\nif [[ -z \"$ENTRY_FILE\" ]]; then\n  # Set the entry JS file using the bundler's entry resolution.\n  export ENTRY_FILE=\"$(\"$NODE_BINARY\" -e \"require('expo/scripts/resolveAppEntry')\" \"$PROJECT_ROOT\" ios absolute | tail -n 1)\"\nfi\n\nif [[ -z \"$CLI_PATH\" ]]; then\n  # Use Expo CLI\n  export CLI_PATH=\"$(\"$NODE_BINARY\" --print \"require.resolve('@expo/cli')\")\"\nfi\nif [[ -z \"$BUNDLE_COMMAND\" ]]; then\n  # Default Expo CLI command for bundling\n  export BUNDLE_COMMAND=\"export:embed\"\nfi\n\n`\"$NODE_BINARY\" --print \"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\"`\n";
 		};
 		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -301,6 +374,44 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-kinis/Pods-kinis-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		31E88191DBCFB9D352CDDBF1 /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-kinis/expo-configure-project.sh\"\n";
+		};
+		51E4B0000A182DADED44871C /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-kinis-kinisTests/expo-configure-project.sh\"\n";
 		};
 		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -405,6 +516,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00E356F31AD99517003FC87E /* kinisTests.m in Sources */,
+				CBB6A63F6E11F182480DBEBF /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +528,7 @@
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				985639EFF73944EE9C9949BF /* LandmarksPose.m in Sources */,
 				812A0834B1DF403DA6053AD5 /* LandmarksPose.swift in Sources */,
+				30A15FE1CB1AF0609E79322F /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,8 +564,10 @@
 					"-lc++",
 					"$(inherited)",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/kinis.app/kinis";
 			};
 			name = Debug;
@@ -475,8 +590,10 @@
 					"-lc++",
 					"$(inherited)",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/kinis.app/kinis";
 			};
 			name = Release;
@@ -487,6 +604,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2SVQ3GF5KK;
 				ENABLE_BITCODE = NO;
@@ -501,8 +620,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sanhtran.kinis;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kinis.app;
 				PRODUCT_NAME = kinis;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -515,6 +636,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2SVQ3GF5KK;
 				INFOPLIST_FILE = kinis/Info.plist;
@@ -528,8 +651,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sanhtran.kinis;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kinis.app;
 				PRODUCT_NAME = kinis;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -586,6 +711,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers/react/nativemodule/core",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers/platform/ios",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-Fabric/React_Fabric.framework/Headers/react/renderer/components/view/platform/cxx",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-NativeModulesApple/React_NativeModulesApple.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers/react/renderer/graphics/platform/ios",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD = "";
 				LDPLUSPLUS = "";
@@ -611,6 +747,7 @@
 				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
 				USE_HERMES = true;
 			};
 			name = Debug;
@@ -659,6 +796,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers/react/nativemodule/core",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers/platform/ios",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-Fabric/React_Fabric.framework/Headers/react/renderer/components/view/platform/cxx",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-NativeModulesApple/React_NativeModulesApple.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers/react/renderer/graphics/platform/ios",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD = "";
 				LDPLUSPLUS = "";
@@ -683,6 +831,7 @@
 				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
 				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;
 			};

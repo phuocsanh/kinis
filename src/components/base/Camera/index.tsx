@@ -14,7 +14,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 import {initialWindowMetrics} from 'react-native-safe-area-context';
-import {StyleSheet, Platform, View, Text, Pressable, Image} from 'react-native';
+import {StyleSheet, Platform, View, Text, Pressable} from 'react-native';
 import {
   Camera as VisionCamera,
   CameraProps as VisionCameraProps,
@@ -29,6 +29,7 @@ import {
 import {GIFS} from '../../../assets';
 import {getBestFormatCamera} from '../../../utils/helper';
 import {height, width} from '../../../themes/helper';
+import {Image} from '../Image';
 
 interface CameraProps extends Omit<VisionCameraProps, 'device' | 'isActive'> {}
 

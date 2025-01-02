@@ -4,6 +4,10 @@ import {CameraDevice, CameraDeviceFormat} from 'react-native-vision-camera';
  * @param time miliseconds
  * @default 3000
  */
+
+export const DEFAULT_LOCALES = 'vi-VN';
+export const NUMBER_FORMAT = new Intl.NumberFormat(DEFAULT_LOCALES);
+
 export const sleep = (time = 3000) => new Promise(r => setTimeout(r, time));
 
 export const getBestFormatCamera = (

@@ -1,148 +1,227 @@
-// import axios from 'axios';
-// import queryString from 'query-string';
-// import {isObjectLike} from 'lodash';
-// import {AnyObject, ApiResponse} from 'models/common';
-// import storage from './storage';
+import axios, {AxiosInstance, CreateAxiosDefaults} from 'axios';
+import {isObjectLike} from 'lodash';
+import {AnyObject, ApiResponse} from 'models/common';
+import queryString from 'query-string';
+import {isFile, isFileArray} from './checkType';
+import {useAppStore} from 'stores';
 
-// export const BASE_URL = storage.getValue('baseUrl') || LOCAL_URL;
+export const REMOTE_URL = 'hthttps://api.kinis.ai/api';
+// export const LOCAL_URL = 'https://asher.thietkewebsite.info.vn/api';
+export const BASE_URL = __DEV__
+  ? // DEV URL ✅ chỉnh ở đây
+    REMOTE_URL
+  : // BUILD URL: ❌ Không chỉnh sửa ở đây
+    REMOTE_URL;
 
-// export const URL_UPLOAD = BASE_URL + '/media/api/uploads/';
+export const URL_UPLOAD = BASE_URL + '/media/api/uploads/';
 
-// const instance = axios.create({baseURL: BASE_URL, timeout: 30000});
+const transformPostFormData = (object: AnyObject | FormData = {}) => {
+  if (object instanceof FormData) {
+    return object;
+  }
+  const formData = new FormData();
+  for (const [key, value] of Object.entries(object)) {
+    if (isObjectLike(value)) {
+      if (Array.isArray(value) && isFileArray(value)) {
+        value.forEach(v => {
+          formData.append(key, v as unknown as Blob);
+        });
+      } else if (isFile(value)) {
+        formData.append(key, value as unknown as Blob);
+      } else {
+        formData.append(key, JSON.stringify(value));
+      }
+    } else if (value != null) {
+      formData.append(key, value);
+    }
+  }
+  return formData;
+};
 
-// instance.interceptors.request.use(
-//   config => {
-//     const token = storage.getValue('accessToken');
-//     if (token) {
-//       config.headers.setAuthorization(`Bearer ${token}`);
-//     }
-//     return config;
-//   },
-//   error => {
-//     throw error;
-//   },
-// );
+const transformPostData = (object: AnyObject = {}) => {
+  const newObject: AnyObject = {};
+  for (const [key, value] of Object.entries(object)) {
+    if (isObjectLike(value)) {
+      newObject[key] = JSON.stringify(value);
+    } else {
+      newObject[key] = value;
+    }
+  }
+  return queryString.stringify(newObject);
+};
 
-// instance.interceptors.response.use(
-//   response => {
-//     if (response.data.code && response.data.code !== 200) {
-//       throw {response};
-//     }
-//     return response;
-//   },
-//   error => {
-//     throw error;
-//   },
-// );
+export class Api {
+  instance: AxiosInstance;
+  constructor(config?: CreateAxiosDefaults) {
+    this.instance = axios.create(config);
+  }
 
-// const isFile = (object: AnyObject) => {
-//   if (object.uri && object.type) {
-//     return true;
-//   }
-//   return false;
-// };
+  async get<T = void>(
+    url: string & (T extends void ? 'Bạn chưa khai báo kiểu trả về' : string),
+    params?: unknown,
+  ): Promise<T> {
+    const response = await this.instance.get<T>(url, {params});
+    return response.data;
+  }
 
-// const transformPostFormData = (object: AnyObject | FormData = {}) => {
-//   if (object instanceof FormData) {
-//     return object;
-//   }
-//   const formData = new FormData();
-//   for (const [key, value] of Object.entries(object)) {
-//     if (isObjectLike(value)) {
-//       if (Array.isArray(value) && isFile(value[0])) {
-//         value.forEach(v => {
-//           formData.append(key, v);
-//         });
-//       } else if (isFile(value)) {
-//         formData.append(key, value);
-//       } else {
-//         formData.append(key, JSON.stringify(value));
-//       }
-//     } else if (value != null) {
-//       formData.append(key, value);
-//     }
-//   }
-//   return formData;
-// };
+  /** form-urlencoded */
+  async post<T = ApiResponse>(
+    url: string,
+    body?: AnyObject,
+    params?: unknown,
+  ): Promise<T> {
+    const data = transformPostData(body);
+    const response = await this.instance.post<T>(url, data, {params});
+    return response.data;
+  }
 
-// const transformPostData = (object: AnyObject = {}) => {
-//   const newObject: AnyObject = {};
-//   for (const [key, value] of Object.entries(object)) {
-//     if (isObjectLike(value)) {
-//       newObject[key] = JSON.stringify(value);
-//     } else {
-//       newObject[key] = value;
-//     }
-//   }
-//   return queryString.stringify(newObject);
-// };
+  /** form-data */
+  async postForm<T = ApiResponse>(
+    url: string,
+    body?: AnyObject | FormData,
+    params?: unknown,
+  ): Promise<T> {
+    const data = transformPostFormData(body);
+    const response = await this.instance.postForm<T>(url, data, {params});
+    return response.data;
+  }
 
-// const api = {
-//   get: async <T = void>(
-//     url: string & (T extends void ? 'Bạn chưa khai báo kiểu trả về' : string),
-//     params?: any,
-//   ): Promise<T> => {
-//     const response = await instance.get<T>(url, {params});
-//     return response.data;
-//   },
-//   /** form-urlencoded */
-//   post: async <T = ApiResponse>(url: string, body?: AnyObject, params?: any): Promise<T> => {
-//     const data = transformPostData(body);
-//     const response = await instance.post<T>(url, data, {params});
-//     return response.data;
-//   },
-//   /** form-data */
-//   postForm: async <T = ApiResponse>(url: string, body?: AnyObject | FormData, params?: any): Promise<T> => {
-//     const data = transformPostFormData(body);
-//     const response = await instance.postForm<T>(url, data, {params});
-//     return response.data;
-//   },
-//   /** raw-JSON */
-//   postRaw: async <T = ApiResponse>(url: string, body?: AnyObject | FormData, params?: any): Promise<T> => {
-//     const data = JSON.stringify(body);
-//     const response = await instance.post<T>(url, data, {params, headers: {'Content-Type': 'application/json'}});
-//     return response.data;
-//   },
-//   /** form-urlencoded */
-//   put: async <T = ApiResponse>(url: string, body?: AnyObject, params?: any): Promise<T> => {
-//     const data = transformPostData(body);
-//     const response = await instance.put<T>(url, data, {params});
-//     return response.data;
-//   },
-//   /** form-data */
-//   putForm: async <T = ApiResponse>(url: string, body?: AnyObject | FormData, params?: any): Promise<T> => {
-//     const data = transformPostFormData(body);
-//     const response = await instance.putForm<T>(url, data, {params});
-//     return response.data;
-//   },
-//   /** raw-JSON */
-//   putRaw: async <T = ApiResponse>(url: string, body?: AnyObject | FormData, params?: any): Promise<T> => {
-//     const data = JSON.stringify(body);
-//     const response = await instance.put<T>(url, data, {params, headers: {'Content-Type': 'application/json'}});
-//     return response.data;
-//   },
-//   /** form-urlencoded */
-//   patch: async <T = ApiResponse>(url: string, body?: AnyObject, params?: any): Promise<T> => {
-//     const data = transformPostData(body);
-//     const response = await instance.patch<T>(url, data, {params});
-//     return response.data;
-//   },
-//   /** form-data */
-//   patchForm: async <T = ApiResponse>(url: string, body?: AnyObject | FormData, params?: any): Promise<T> => {
-//     const data = transformPostFormData(body);
-//     const response = await instance.patchForm<T>(url, data, {params});
-//     return response.data;
-//   },
-//   /** raw-JSON */
-//   patchRaw: async <T = ApiResponse>(url: string, body?: AnyObject | FormData, params?: any): Promise<T> => {
-//     const data = JSON.stringify(body);
-//     const response = await instance.patch<T>(url, data, {params, headers: {'Content-Type': 'application/json'}});
-//     return response.data;
-//   },
-//   delete: async <T = ApiResponse>(url: string, params?: any): Promise<T> => {
-//     const response = await instance.delete<T>(url, {params});
-//     return response.data;
-//   },
-// };
+  /** raw-JSON */
+  async postRaw<T = ApiResponse>(
+    url: string,
+    body?: AnyObject,
+    params?: unknown,
+  ): Promise<T> {
+    const data = JSON.stringify(body);
+    const response = await this.instance.post<T>(url, data, {
+      params,
+      headers: {'Content-Type': 'application/json'},
+    });
+    return response.data;
+  }
 
-// export default api;
+  /** form-urlencoded */
+  async put<T = ApiResponse>(
+    url: string,
+    body?: AnyObject,
+    params?: unknown,
+  ): Promise<T> {
+    const data = transformPostData(body);
+    const response = await this.instance.put<T>(url, data, {params});
+    return response.data;
+  }
+
+  /** form-data */
+  async putForm<T = ApiResponse>(
+    url: string,
+    body?: AnyObject | FormData,
+    params?: unknown,
+  ): Promise<T> {
+    const data = transformPostFormData(body);
+    const response = await this.instance.putForm<T>(url, data, {params});
+    return response.data;
+  }
+
+  /** raw-JSON */
+  async putRaw<T = ApiResponse>(
+    url: string,
+    body?: AnyObject,
+    params?: unknown,
+  ): Promise<T> {
+    const data = JSON.stringify(body);
+    const response = await this.instance.put<T>(url, data, {
+      params,
+      headers: {'Content-Type': 'application/json'},
+    });
+    return response.data;
+  }
+
+  /** form-urlencoded */
+  async patch<T = ApiResponse>(
+    url: string,
+    body?: AnyObject,
+    params?: unknown,
+  ): Promise<T> {
+    const data = transformPostData(body);
+    const response = await this.instance.patch<T>(url, data, {params});
+    return response.data;
+  }
+
+  /** form-data */
+  async patchForm<T = ApiResponse>(
+    url: string,
+    body?: AnyObject | FormData,
+    params?: unknown,
+  ): Promise<T> {
+    const data = transformPostFormData(body);
+    const response = await this.instance.patchForm<T>(url, data, {params});
+    return response.data;
+  }
+
+  /** raw-JSON */
+  async patchRaw<T = ApiResponse>(
+    url: string,
+    body?: AnyObject,
+    params?: unknown,
+  ): Promise<T> {
+    const data = JSON.stringify(body);
+    const response = await this.instance.patch<T>(url, data, {
+      params,
+      headers: {'Content-Type': 'application/json'},
+    });
+    return response.data;
+  }
+
+  async delete<T = ApiResponse>(url: string, params?: unknown): Promise<T> {
+    const response = await this.instance.delete<T>(url, {params});
+    return response.data;
+  }
+}
+
+const api = new Api({baseURL: BASE_URL, timeout: 30000});
+api.instance.interceptors.request.use(
+  config => {
+    if (__DEV__) {
+      console.log(
+        `%c__REQUEST__${config.url}: %o`,
+        'color: blue;font-weight: bold',
+        config,
+      );
+    }
+    const token = useAppStore.getState().userToken;
+    if (token) {
+      config.headers.setAuthorization(`Bearer ${token}`);
+    }
+    return config;
+  },
+  error => {
+    throw error;
+  },
+);
+
+api.instance.interceptors.response.use(
+  response => {
+    if (__DEV__) {
+      console.log(
+        `%c__RESPONSE__${response.config.url}: %o`,
+        'color: green;font-weight: bold',
+        response,
+      );
+    }
+    if (response.data.code && response.data.code !== 200) {
+      throw {response};
+    }
+    return response;
+  },
+  error => {
+    if (__DEV__) {
+      console.log(
+        `%c__ERROR__${error.response?.config?.url}: %o`,
+        'color: red;font-weight: bold',
+        error.response || error,
+      );
+    }
+    throw error;
+  },
+);
+export default api;
