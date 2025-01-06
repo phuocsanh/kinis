@@ -18,7 +18,8 @@ class MainApplication : Application(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost =
       ReactNativeHostWrapper(this, object : DefaultReactNativeHost(this) {
-    override fun getPackages(): List<ReactPackage> {
+        
+          override fun getPackages(): List<ReactPackage> {
           // Lấy danh sách packages hiện có
           val packages = PackageList(this).packages
           // Thêm plugin của bạn vào danh sách

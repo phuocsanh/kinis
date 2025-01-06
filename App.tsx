@@ -15,9 +15,9 @@ import {QueryClientProvider} from '@tanstack/react-query';
 import useNotificationListener from 'hooks/useNotificationListener';
 import {useFCMToken} from 'hooks/useFCMToken';
 import {RootNavigation} from 'navigation';
-
+import {PortalHost, PortalProvider} from '@gorhom/portal';
+import {CustomToast} from 'components/common/CustomToast';
 function App(): React.JSX.Element {
-  // const isDarkMode = useColorScheme() === 'dark';
   useReactQueryDevTools(queryClient);
   useNotificationListener();
   useFCMToken();
@@ -25,8 +25,12 @@ function App(): React.JSX.Element {
     <SafeAreaProvider>
       <QueryClientProvider client={queryClient}>
         <GestureHandlerRootView style={{flex: 1}}>
-          <StatusBar />
-          <RootNavigation />
+          <PortalProvider>
+            <StatusBar />
+            <RootNavigation />
+            <PortalHost name="root" />
+          </PortalProvider>
+          <CustomToast />
         </GestureHandlerRootView>
       </QueryClientProvider>
     </SafeAreaProvider>

@@ -5,3 +5,5 @@ export * from './View';
 export * from './Pressable';
 export * from './Button';
 export * from './CheckBox';
+export * from './Modal';
+export * from './Loading';

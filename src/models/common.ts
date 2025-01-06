@@ -4,41 +4,28 @@ import {AxiosError} from 'axios';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnyObject = {[key: string]: any};
 
-export type ResponseData<D> = ApiResponse & {
-  data: D;
-};
+export type ApiResponse = {code: number; message: string};
 
-export type ApiResponse = {
-  code: number;
-  message: string;
-};
+export interface ApiResponseData<D> extends ApiResponse {
+  record: D;
+}
 
-export type AppAxiosError = AxiosError<
-  ApiResponse & {
-    data?: AnyObject;
-  }
->;
+export interface PagingResponseData<D> extends ApiResponse {
+  totalPages: number;
+  total: number;
+  limit: number;
+  page: number;
+  list: D[];
+}
 
-type Paging = {
-  p?: number;
-  limit?: number;
-};
-
-export type PagingParams<P = void> = P extends void
-  ? Paging | void
-  : Paging & P;
-
-export type PagingResponseData<D> = ApiResponse & {
-  data: {
-    last_page: number;
-    total: number;
-    per_page: number;
-    current_page: number;
-    data: D[];
-  };
-  //from:number;
-  //to:number;
-};
+export interface RecordCommon {
+  _id: string;
+  name: string;
+  imageUrl: string;
+  videoUrl: string;
+  content: string;
+  description: string;
+}
 
 export type Timeout = ReturnType<typeof setTimeout>;
 

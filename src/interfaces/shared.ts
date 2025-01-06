@@ -12,29 +12,3 @@ export type ToastProps = ToastData &
     type: 'error' | 'success' | 'warning';
     action?: {title: string; onPress: () => void};
   };
-
-export type ApiResponse = {
-  statusCode: number;
-  message: string;
-};
-
-export type ApiResponseData<D> = ApiResponse & {
-  data: D;
-};
-
-export type AppAxiosError = AxiosError<ApiResponse>;
-
-type Paging = {
-  p?: number;
-  limit?: number;
-};
-
-export type PagingParams<P = void> = P extends void ? Paging | void : Paging & P;
-
-export type PagingResponseData<D> = ApiResponse & {
-  total_pages: number;
-  total: number;
-  per_page: number;
-  current_page: number;
-  data: D[];
-};

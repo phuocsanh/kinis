@@ -14,7 +14,12 @@ import Animated, {
 } from 'react-native-reanimated';
 import {Gesture, GestureDetector} from 'react-native-gesture-handler';
 import {initialWindowMetrics} from 'react-native-safe-area-context';
-import {StyleSheet, Platform, View, Text, Pressable} from 'react-native';
+import {Image, Pressable, Text, View} from 'components/base';
+import {StyleSheet, Platform} from 'react-native';
+import {getBestFormatCamera} from 'utils/helper';
+import {height, width} from 'themes/helper';
+import {GIFS, LOTTIES} from 'assets';
+import {COLORS} from 'themes/color';
 import {
   Camera as VisionCamera,
   CameraProps as VisionCameraProps,
@@ -26,10 +31,17 @@ import {
   VideoFile,
   useCameraFormat,
 } from 'react-native-vision-camera';
-import {GIFS} from '../../../assets';
-import {getBestFormatCamera} from '../../../utils/helper';
-import {height, width} from '../../../themes/helper';
-import {Image} from '../Image';
+import {
+  Circle,
+  CircleOff,
+  Moon,
+  MoonStar,
+  Settings,
+  SwitchCamera,
+  Zap,
+  ZapOff,
+} from 'lucide-react-native';
+import {useIsFocused} from '@react-navigation/native';
 
 interface CameraProps extends Omit<VisionCameraProps, 'device' | 'isActive'> {}
 
@@ -44,7 +56,7 @@ const SCALE_FULL_ZOOM = 3;
 export const Camera = forwardRef(
   (props: CameraProps, ref: Ref<VisionCamera>) => {
     const [cameraPosition, setCameraPosition] =
-      useState<CameraPosition>('back');
+      useState<CameraPosition>('front');
     const [enableHdr, setEnableHdr] = useState(false);
     const [flash, setFlash] = useState<'off' | 'on'>('off');
     const [enableNightMode, setEnableNightMode] = useState(false);
@@ -58,6 +70,7 @@ export const Camera = forwardRef(
           : undefined,
       [device],
     );
+
     const {hasPermission, requestPermission} = useCameraPermission();
 
     const zoom = useSharedValue(1);
@@ -84,7 +97,6 @@ export const Camera = forwardRef(
     const videoHdr = format?.supportsVideoHdr && enableHdr;
     const photoHdr = format?.supportsPhotoHdr && enableHdr && !videoHdr;
     const fps = Math.min(format?.maxFps ?? 1, targetFps);
-    console.log('🚀 ~ Camera ~ fps:', fps);
 
     const setIsPressingButton = useCallback(
       (_isPressingButton: boolean) => {
@@ -113,7 +125,7 @@ export const Camera = forwardRef(
     }, []);
 
     const onError = useCallback((error: CameraRuntimeError) => {
-      console.error(error);
+      console.error('error camera', error);
     }, []);
 
     const cameraAnimatedProps = useAnimatedProps(() => {
@@ -153,7 +165,7 @@ export const Camera = forwardRef(
 
     if (!hasPermission) {
       return (
-        <View>
+        <View flex contentCenter>
           <Text>No permission</Text>
         </View>
       );
@@ -161,20 +173,45 @@ export const Camera = forwardRef(
 
     if (device === undefined) {
       return (
-        <View>
+        <View flex contentCenter>
           <Text>No device</Text>
         </View>
       );
     }
 
+    const [isCameraInitialized, setIsCameraInitialized] = useState(false);
+    const [isActive, setIsActive] = useState(Platform.OS === 'ios');
+
+    const isFocused = useIsFocused();
+
+    useEffect(() => {
+      if (Platform.OS === 'ios') {
+        return () => {};
+      }
+
+      let timeout: NodeJS.Timeout;
+
+      if (isCameraInitialized) {
+        timeout = setTimeout(() => setIsActive(true), 150);
+      }
+
+      setIsActive(false);
+      return () => {
+        clearTimeout(timeout);
+      };
+    }, [isCameraInitialized]);
+    const onInitialized = useCallback(() => {
+      setIsCameraInitialized(true);
+    }, []);
     return (
-      <View>
+      <View flex>
         <GestureDetector gesture={gesture}>
           <AnimatedCamera
+            onInitialized={onInitialized}
             style={StyleSheet.absoluteFill}
             device={device}
             fps={fps}
-            isActive
+            isActive={isActive && isFocused && isCameraInitialized}
             ref={ref}
             exposure={0}
             torch={flash}
@@ -186,6 +223,7 @@ export const Camera = forwardRef(
             enableFpsGraph={true}
             enableZoomGesture={false}
             pixelFormat={pixelFormat}
+            photoQualityBalance="speed"
             outputOrientation="device"
             // photoQualityBalance="speed"
             animatedProps={cameraAnimatedProps}
@@ -211,40 +249,82 @@ export const Camera = forwardRef(
         <LottieView autoPlay loop source={LOTTIES.QRScanner} style={{width: width, height: width, top: '-5%'}} />
       </View> */}
 
-        <View>
-          <Pressable onPress={onFlipCameraPressed}>
-            <Text>Camera</Text>
+        <View
+          gap={12}
+          right={15}
+          position="absolute"
+          top={
+            initialWindowMetrics?.insets.top
+              ? initialWindowMetrics?.insets.top + 15
+              : 15
+          }>
+          <Pressable
+            contentCenter
+            round={40}
+            backgroundColor={COLORS.blackTransparent40}
+            onPress={onFlipCameraPressed}>
+            <SwitchCamera color="white" size={24} />
           </Pressable>
           {supportsFlash && (
-            <Pressable onPress={onFlashPressed}>
-              <Text>{flash === 'on' ? 'Flash On' : 'Flash Off'}</Text>
+            <Pressable
+              contentCenter
+              round={40}
+              backgroundColor={COLORS.blackTransparent40}
+              onPress={onFlashPressed}>
+              {flash === 'on' ? <Zap /> : <ZapOff />}
             </Pressable>
           )}
           {supports60Fps && (
-            <Pressable onPress={() => setTargetFps(t => (t === 30 ? 60 : 30))}>
-              <Text>{`${targetFps}\nFPS`}</Text>
+            <Pressable
+              contentCenter
+              round={40}
+              backgroundColor={COLORS.blackTransparent40}
+              onPress={() => setTargetFps(t => (t === 30 ? 60 : 30))}>
+              <Text
+                fontSize={11}
+                fontWeight="bold"
+                textAlign="center"
+                color={COLORS.white}>{`${targetFps}\nFPS`}</Text>
             </Pressable>
           )}
           {supportsHdr && (
-            <Pressable onPress={() => setEnableHdr(h => !h)}>
-              <Text>{enableHdr ? 'hdr' : 'hdr-off'}</Text>
+            <Pressable
+              contentCenter
+              round={40}
+              backgroundColor={COLORS.blackTransparent40}
+              onPress={() => setEnableHdr(h => !h)}>
+              {enableHdr ? (
+                <Circle color="white" size={24} />
+              ) : (
+                <CircleOff color="white" size={24} />
+              )}
             </Pressable>
           )}
           {canToggleNightMode && (
-            <Pressable onPress={() => setEnableNightMode(!enableNightMode)}>
-              <Text>{enableNightMode ? 'moon' : 'moon-outline'}</Text>
+            <Pressable
+              contentCenter
+              round={40}
+              backgroundColor={COLORS.blackTransparent40}
+              onPress={() => setEnableNightMode(!enableNightMode)}>
+              {enableNightMode ? (
+                <Moon color="white" size={24} />
+              ) : (
+                <MoonStar color="white" size={24} />
+              )}
             </Pressable>
           )}
-          {canToggleNightMode && (
-            <Pressable onPress={() => setEnableNightMode(!enableNightMode)}>
-              <Text>{enableNightMode ? 'moon' : 'moon-outline'}</Text>
-            </Pressable>
-          )}
-          <Pressable>
-            <Text>{'Cài đặt'}</Text>
+
+          <Pressable
+            contentCenter
+            round={40}
+            backgroundColor={COLORS.blackTransparent40}>
+            <Settings color="white" size={24} />
           </Pressable>
-          <Pressable>
-            <Image source={GIFS.ic_scanner} width={23} height={23} />
+          <Pressable
+            contentCenter
+            round={40}
+            backgroundColor={COLORS.blackTransparent40}>
+            <Image source={GIFS.ic_scanner} square={25} />
           </Pressable>
         </View>
       </View>

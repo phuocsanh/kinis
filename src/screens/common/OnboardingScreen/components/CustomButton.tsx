@@ -68,7 +68,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         if (flatListIndex.value < dataLength - 1) {
           flatListRef.current?.scrollToIndex({index: flatListIndex.value + 1});
         } else {
-          navigationRef.navigate('Login');
+          navigationRef.navigate('Bottom', {screen: 'Articles'});
         }
       }}>
       <Animated.View style={[styles.container, buttonAnimationStyle]}>

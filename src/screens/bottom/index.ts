@@ -1,3 +1,4 @@
-export * from './HomeScreen';
-export * from './DetectScreen';
-export * from './MessagesScreen';
+export * from './Articles';
+export * from './ExerciseScreen';
+export * from './ChatScreen';
+export * from './DeviceScreen';

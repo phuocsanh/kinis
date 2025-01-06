@@ -26,12 +26,10 @@ const landmarksPosePlugin = VisionCameraProxy.initFrameProcessorPlugin(
 function bodyLandmarks(frame: Frame) {
   'worklet';
   if (landmarksPosePlugin === undefined) {
-    console.log(
-      '🚀 ~ bodyLandmarks ~ landmarksPosePlugin:',
-      landmarksPosePlugin,
-    );
     throw new Error('Failed to load Frame Processor Plugin!');
   }
+  console.log('🚀 ~ bodyLandmarks ~ frame:', frame);
+
   return landmarksPosePlugin.call(frame);
 }
 
@@ -81,7 +79,8 @@ export default function useLandmarks({isPose}: LandmarksProps) {
     //   dataType: 'uint8'
     // })
     const detectedBodyData = isPose && bodyLandmarks(frame);
-    console.log('🚀 ~ frameProcessor ~ detectedBodyData:', detectedBodyData);
+    console.log('🚀 ~ useLandmarks ~ frame:', frame);
+    // console.log('🚀 ~ frameProcessor ~ detectedBodyData:', detectedBodyData);
     // const detectedHandData = isHand && handLandmarks(frame);
 
     frame.render();

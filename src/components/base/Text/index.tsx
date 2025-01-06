@@ -88,7 +88,7 @@ export const Text = ({
   minHeight,
   opacity,
   transform,
-  color = COLORS.textPrimary,
+  color = COLORS.black,
   fontSize = 14,
   fontWeight,
   font = 'regular',

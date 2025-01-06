@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 // import Modal from 'react-native-modal';
 import Animated, {
   Extrapolation,
@@ -9,11 +9,16 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import {StyleSheet, Platform} from 'react-native';
-import {View, Image, Pressable, Text} from 'components/base';
+import {View, Image, Pressable, Text, Button, Loading} from 'components/base';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {navigationRef} from 'navigation';
 import {COLORS} from 'themes/color';
 import {width} from 'themes/helper';
+import {HeaderTitle} from 'components/common';
+import {Camera, ChevronRight, Lock, User, UserRound} from 'lucide-react-native';
+import {navigationRef} from 'navigation/navigationRef';
+import {useLogout, useQueryUserInfo} from 'queries/auth';
+import {useIsFocused} from '@react-navigation/native';
+import {useAppStore} from 'stores';
 
 type HealthMetrics = 'BMI' | 'BMR' | 'TDEE';
 type HealthMetricsItemList = {
@@ -56,96 +61,85 @@ export const constants = {
 };
 
 export default function AccountInfoScreen() {
-  const scrollY = useSharedValue(0);
-  const {bottom} = useSafeAreaInsets();
-  const [showInfoHealthMetrics, setShowInfoHealthMetrics] =
-    useState<HealthMetricsItemList>();
+  const loguot = useLogout();
+  const userToken = useAppStore(state => state.userToken);
 
-  const handleScroll = useAnimatedScrollHandler(e => {
-    scrollY.value = e.contentOffset.y;
-  });
+  const isFocused = useIsFocused();
+  const userInfo = useQueryUserInfo();
 
-  const offsetValue = 140;
-  const animatedHeader = useAnimatedStyle(() => {
-    const headerInitialHeight = 130;
-    const headerNextHeight = Platform.OS === 'ios' ? 110 : 120;
-    const height = interpolate(
-      scrollY.value,
-      [0, offsetValue],
-      [headerInitialHeight, headerNextHeight],
-      Extrapolation.CLAMP,
-    );
-
-    const backgroundColor = interpolateColor(
-      scrollY.value,
-      [0, offsetValue],
-      [COLORS.antiFlashWhite, COLORS.primary],
-    );
-    return {
-      backgroundColor,
-      height,
-    };
-  });
-  const iconAnimatedStyles = useAnimatedStyle(() => {
-    const opacity = interpolate(
-      scrollY.value,
-      [0, 100, offsetValue],
-      [0, 0, 1],
-      Extrapolation.CLAMP,
-    );
-    return {opacity};
-  });
-  const nameAnimatedStyles = useAnimatedStyle(() => {
-    const opacity = interpolate(
-      scrollY.value,
-      [0, 100, offsetValue],
-      [0, 0, 1],
-      Extrapolation.CLAMP,
-    );
-    const translateX = interpolate(
-      scrollY.value,
-      [0, offsetValue],
-      [-28, 0],
-      Extrapolation.CLAMP,
-    );
-    const translateY = interpolate(
-      scrollY.value,
-      [0, offsetValue],
-      [28, 0],
-      Extrapolation.CLAMP,
-    );
-    return {opacity, transform: [{translateX}, {translateY}]};
-  });
-  const animImage = useAnimatedStyle(() => {
-    const yValue = Platform.OS === 'ios' ? 54 : 45;
-    const translateY = interpolate(
-      scrollY.value,
-      [0, offsetValue],
-      [0, -yValue],
-      Extrapolation.CLAMP,
-    );
-
-    const xValue =
-      width / 2 - 2 * constants.padding - constants.headerButtonWidth;
-    const translateX = interpolate(
-      scrollY.value,
-      [0, offsetValue],
-      [0, -xValue],
-      Extrapolation.CLAMP,
-    );
-
-    const scale = interpolate(
-      scrollY.value,
-      [0, offsetValue],
-      [1, 0.3],
-      Extrapolation.CLAMP,
-    );
-    return {
-      transform: [{translateY}, {translateX}, {scale}],
-    };
-  });
-
-  return <View flex backgroundColor={COLORS.antiFlashWhite}></View>;
+  useEffect(() => {
+    if (!userToken && isFocused) {
+      setTimeout(() => {
+        navigationRef.goBack();
+      }, 500);
+    }
+  }, [userToken, isFocused]);
+  return (
+    <View flex backgroundColor={COLORS.white}>
+      <HeaderTitle title="Profile Detail" />
+      {loguot.isPending && <Loading />}
+      <View
+        square={80}
+        marginTop={15}
+        alignSelf="center"
+        justifyContent="center"
+        alignItems="center"
+        radius={100}
+        backgroundColor={COLORS.primary}>
+        <UserRound color={'white'} size={40} />
+        <View
+          backgroundColor={COLORS.blackTransparent70}
+          position="absolute"
+          bottom={0}
+          right={-3}
+          round={30}
+          justifyContent="center"
+          alignItems="center">
+          <Camera color={COLORS.white} size={18} />
+        </View>
+      </View>
+      <Text marginTop={5} textAlign="center" fontSize={16} font="semiBold">
+        {userInfo.data?.userId.fullName
+          ? userInfo.data?.userId.fullName
+          : 'Guest'}
+      </Text>
+      <Text marginTop={5} textAlign="center" color={COLORS.shadowBlue}>
+        {userInfo.data?.email ? userInfo.data?.email : ''}
+      </Text>
+      <View marginTop={40} marginHorizontal={20} flex>
+        <Text fontSize={16}>Account</Text>
+        <Pressable
+          onPress={() => navigationRef.navigate('EditProfile')}
+          marginTop={10}
+          paddingVertical={10}
+          rowCenter
+          justifyContent="space-between">
+          <View rowCenter>
+            <User color={COLORS.primary} />
+            <Text marginLeft={10}>Edit Profile</Text>
+          </View>
+          <ChevronRight strokeWidth={1.5} />
+        </Pressable>
+        <Pressable
+          onPress={() => navigationRef.navigate('ChangePassword')}
+          paddingVertical={10}
+          rowCenter
+          justifyContent="space-between">
+          <View rowCenter>
+            <Lock color={COLORS.primary} />
+            <Text marginLeft={10}>Change Password</Text>
+          </View>
+          <ChevronRight strokeWidth={1.5} />
+        </Pressable>
+      </View>
+      <Button
+        marginBottom={60}
+        title="Log out"
+        marginHorizontal={25}
+        onPress={() => loguot.mutate()}
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

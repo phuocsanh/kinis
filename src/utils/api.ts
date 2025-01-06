@@ -5,7 +5,7 @@ import queryString from 'query-string';
 import {isFile, isFileArray} from './checkType';
 import {useAppStore} from 'stores';
 
-export const REMOTE_URL = 'hthttps://api.kinis.ai/api';
+export const REMOTE_URL = 'https://api.kinis.ai/api/';
 // export const LOCAL_URL = 'https://asher.thietkewebsite.info.vn/api';
 export const BASE_URL = __DEV__
   ? // DEV URL ✅ chỉnh ở đây
@@ -192,6 +192,7 @@ api.instance.interceptors.request.use(
     if (token) {
       config.headers.setAuthorization(`Bearer ${token}`);
     }
+    // config.headers.set('app-version', displayVersion());
     return config;
   },
   error => {

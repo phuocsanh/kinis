@@ -12,12 +12,14 @@ export const COLORS = {
   border: '#ccc',
   antiFlashWhite: '#F1F1F1',
   cultured: '#F8F8F8',
+  brightGray: '#E5E8EC',
   darkElectricBlue: '#556376',
   shadowBlue: '#7C8BA1',
   cadetGrey: '#96A2B3',
   lightGray: '#CAD1D9',
   cadetBlue: '#B0B9C6',
   charcoal: '#334155',
+  gunmetal: '#282F38',
   frenchPuce: '#492000',
 
   bgSuccess: '#def1d7',
@@ -29,6 +31,7 @@ export const COLORS = {
   textSuccess: '#1f8722',
 
   transparent: 'transparent',
+  blackTransparent1: 'rgba(0,0,0,0.01)',
   blackTransparent10: 'rgba(0,0,0,0.1)',
   blackTransparent20: 'rgba(0,0,0,0.2)',
   blackTransparent30: 'rgba(0,0,0,0.3)',
@@ -50,4 +53,11 @@ export const COLORS = {
 
 export const GRADIENT = {
   shimmer: ['#E6E6E6', '#f5f5f5', '#f5f5f5', '#E6E6E6'],
+  itemBalance: [
+    COLORS.blackTransparent1,
+    COLORS.blackTransparent20,
+    COLORS.blackTransparent80,
+    COLORS.blackTransparent80,
+    COLORS.blackTransparent80,
+  ],
 };

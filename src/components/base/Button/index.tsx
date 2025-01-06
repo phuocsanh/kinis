@@ -1,13 +1,10 @@
 import React, {ReactElement} from 'react';
 import {ActivityIndicator} from 'react-native';
-import {
-  Pressable,
-  PressableProps,
-  TextProps,
-  Text,
-  View,
-} from 'components/base';
+
 import {COLORS} from 'themes/color';
+import {Text, TextProps} from '../Text';
+import {Pressable, PressableProps} from '../Pressable';
+import {View} from '../View';
 
 type ButtonProps = Partial<
   {

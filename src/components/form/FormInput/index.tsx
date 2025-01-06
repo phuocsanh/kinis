@@ -31,6 +31,7 @@ export type FormInputProps<F extends FieldValues> = {
   renderLabel?: (label?: string, required?: boolean) => ReactElement;
   renderError?: (error?: FieldError) => ReactElement;
   renderRight?: () => ReactElement;
+  renderLeft?: () => ReactElement;
   transformInputValue?:
     | 'card'
     | 'price'
@@ -75,6 +76,7 @@ export const FormInput = <F extends FieldValues>({
   renderLabel,
   renderError,
   renderRight,
+  renderLeft,
   ...inputProps
 }: FormInputProps<F>) => {
   const {
@@ -115,7 +117,7 @@ export const FormInput = <F extends FieldValues>({
         font="regular"
         fontSize={16}
         color={COLORS.black}
-        marginBottom={10}
+        marginBottom={5}
         {...labelProps}>
         {label}
         {required && <Text color={COLORS.red}> *</Text>}
@@ -143,13 +145,18 @@ export const FormInput = <F extends FieldValues>({
           marginRight={12}
           onPress={() => setShowText(!showText)}
           alignSelf="center">
-          {showText ? (
+          {!showText ? (
             <EyeOff color={COLORS.shadowBlue} />
           ) : (
             <Eye color={COLORS.shadowBlue} />
           )}
         </Pressable>
       );
+    }
+  };
+  const _renderLeft = () => {
+    if (renderLeft) {
+      return renderLeft();
     }
   };
 
@@ -166,24 +173,22 @@ export const FormInput = <F extends FieldValues>({
             ? COLORS.primary
             : error
             ? COLORS.red
-            : COLORS.cadetGrey
+            : COLORS.lightGray
         }
         {...inputContainerProps}>
+        {_renderLeft()}
         <TextInput
           flex
+          borderTopLeftRadius={10}
           onFocus={() => setIsFocused(true)}
           onEndEditing={() => setIsFocused(false)}
           value={value}
           onBlur={onBlur}
-          paddingHorizontal={12}
+          paddingHorizontal={10}
           onChangeText={onChangeText}
           placeholderTextColor={COLORS.cadetGrey}
           backgroundColor={
-            inputProps.editable === false
-              ? COLORS.antiFlashWhite
-              : error
-              ? COLORS.bgError
-              : undefined
+            inputProps.editable === false ? COLORS.antiFlashWhite : undefined
           }
           clearButtonMode="always"
           secureTextEntry={toggleHiddenPassword ? !showText : undefined}

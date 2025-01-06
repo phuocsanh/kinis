@@ -8,32 +8,32 @@ import {
 } from '@react-navigation/native-stack';
 import {useIsSignedOut} from 'hooks/CheckLogin';
 import useNotificationListener from 'hooks/useNotificationListener';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useAppStore} from 'stores';
 import {navigationRef} from './navigationRef';
 import Bottom from './Bottom';
 import auth from 'screens/auth';
 import common from 'screens/common';
-// import remoteConfig from 'util/remoteConfig';
 
 const RootStack = createNativeStackNavigator({
   screenOptions: {headerShown: false},
-  groups: {
-    OnboardingScreen: {
-      if: useIsSignedOut,
-      screens: {
-        OnboardingScreen: common.OnboardingScreen,
-      },
-    },
-    Auth: {
-      if: useIsSignedOut,
-      screens: {
-        Login: auth.LoginAndRegisterScreen,
-      },
-    },
-  },
   screens: {
+    OnboardingScreen: common.OnboardingScreen,
     Bottom,
+    Message: common.MessageScreen,
+    DetailArticle: common.DetailArticleScreen,
+    AccountInfo: common.AccountInfoScreen,
+    EditProfile: common.EditProfileScreen,
+    ChangePassword: common.ChangePasswordScreen,
+    UpdatePass: auth.UpdatePassScreen,
+  },
+  groups: {
+    SignedOut: {
+      if: useIsSignedOut,
+      screens: {
+        Login: auth.LoginScreen,
+      },
+    },
   },
 });
 

@@ -9,80 +9,49 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 
-import {DetectScreen, HomeScreen, MessagesScreen} from 'screens/bottom';
+import {
+  DeviceScreen,
+  Articles,
+  ChatScreen,
+  ExerciseScreen,
+} from 'screens/bottom';
 import {Image, Pressable, View} from 'components/base';
 import {StyleSheet} from 'react-native';
 import {COLORS} from 'themes/color';
 import {ICONS} from 'assets';
+import {ChartNoAxesColumnIncreasing, Newspaper} from 'lucide-react-native';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 type BottomParamList = {
-  BottomHomeScreen: {route: {name: 'BottomHomeScreen'}};
-  BottomAssessmentScreen: {route: {name: 'BottomAssessmentScreen'}};
-  BottomExerciseScreen: {route: {name: 'BottomExerciseScreen'}};
-  BottomMessageScreen: {route: {name: 'BottomMessageScreen'}};
-  BottomDeviceScreen: {route: {name: 'BottomDeviceScreen'}};
+  Articles: {route: {name: 'Articles'}};
+  Assessment: {route: {name: 'Assessment'}};
+  Exercise: {route: {name: 'Exercise'}};
+  Chat: {route: {name: 'Chat'}};
+  Device: {route: {name: 'Device'}};
 };
-// export default function Bottom() {
-//   return (
-//     <Tabs.Navigator
-//       initialRouteName="BottomHomeScreen"
-//       screenOptions={{headerShown: false}}
-//       tabBar={CustomNavBar}>
-//       <Tabs.Screen
-//         name="BottomHomeScreen"
-//         component={HomeScreen}
-//         options={{tabBarLabel: 'Home'}}
-//       />
-//       <Tabs.Screen
-//         name="BottomAssessmentScreen"
-//         component={DetectScreen}
-//         options={{tabBarLabel: 'Assessment'}}
-//       />
-//       <Tabs.Screen
-//         name="BottomExerciseScreen"
-//         component={MessagesScreen}
-//         options={{tabBarLabel: 'Exercise'}}
-//       />
-//       <Tabs.Screen
-//         name="BottomMessageScreen"
-//         component={DetectScreen}
-//         options={{tabBarLabel: 'Chat'}}
-//       />
-//       <Tabs.Screen
-//         name="BottomDeviceScreen"
-//         component={MessagesScreen}
-//         options={{tabBarLabel: 'Device'}}
-//       />
-//     </Tabs.Navigator>
-//   );
-// }
+
 const BottomTabMain = createBottomTabNavigator({
   tabBar: props => <CustomNavBar {...props} />,
   screenOptions: {
     headerShown: false,
   },
   screens: {
-    Home: {
-      screen: HomeScreen,
-      options: {title: 'Home'},
-    },
-    Assessment: {
-      screen: DetectScreen,
-      options: {title: 'Assessment'},
+    Articles: {
+      screen: Articles,
+      options: {title: 'Articles'},
     },
 
-    MessagesScreen: {
-      screen: MessagesScreen,
+    Exercise: {
+      screen: ExerciseScreen,
       options: {title: 'Exercise'},
     },
-    Chat: {
-      screen: MessagesScreen,
-      options: {title: 'Chat'},
-    },
     Device: {
-      screen: MessagesScreen,
+      screen: DeviceScreen,
       options: {title: 'Device'},
+    },
+    Chat: {
+      screen: ChatScreen,
+      options: {title: 'Chat'},
     },
   },
 });
@@ -147,25 +116,15 @@ function getIconByRouteName(
   isFocused: boolean,
 ) {
   switch (routeName) {
-    case 'BottomHomeScreen':
+    case 'Articles':
       return (
-        <Image
-          square={24}
-          source={isFocused ? ICONS.ic_bottomHomeWhite : ICONS.ic_bottomHome}
+        <Newspaper
+          size={20}
+          color={isFocused ? COLORS.white : COLORS.shadowBlue}
         />
       );
-    case 'BottomAssessmentScreen':
-      return (
-        <Image
-          square={24}
-          source={
-            isFocused
-              ? ICONS.ic_bottomAssessmentWhite
-              : ICONS.ic_bottomAssessment
-          }
-        />
-      );
-    case 'BottomExerciseScreen':
+
+    case 'Exercise':
       return (
         <Image
           square={24}
@@ -174,20 +133,19 @@ function getIconByRouteName(
           }
         />
       );
-    case 'BottomMessageScreen':
+    case 'Chat':
       return (
         <Image
           square={24}
           source={isFocused ? ICONS.ic_bottomChatWhite : ICONS.ic_bottomChat}
         />
       );
-    case 'BottomDeviceScreen':
+    case 'Device':
       return (
-        <Image
-          square={24}
-          source={
-            isFocused ? ICONS.ic_bottomDeviceWhite : ICONS.ic_bottomDevice
-          }
+        <ChartNoAxesColumnIncreasing
+          size={20}
+          strokeWidth={3}
+          color={isFocused ? COLORS.white : COLORS.shadowBlue}
         />
       );
     default:

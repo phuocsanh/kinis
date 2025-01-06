@@ -1,5 +1,7 @@
-import {LoginAndRegisterScreen} from './LoginAndRegisterScreen';
+import {LoginScreen} from './LoginScreen';
+import UpdatePassScreen from './UpdatePassScreen';
 
 export default {
-  LoginAndRegisterScreen,
+  LoginScreen,
+  UpdatePassScreen,
 };

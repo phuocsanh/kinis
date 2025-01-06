@@ -1,8 +1,11 @@
-import {useMutation} from '@tanstack/react-query';
-import {ApiResponse, ResponseData} from 'models/common';
+import {queryOptions, useMutation, useQuery} from '@tanstack/react-query';
+import {ApiResponse, ApiResponseData} from 'models/common';
 import {useAppStore} from 'stores';
 import messaging from '@react-native-firebase/messaging';
 import api from 'utils/api';
+import {StatusAccount, UserInfo} from 'models/auth';
+import {navigationRef} from 'navigation/navigationRef';
+import {showToast} from 'components/common/CustomToast';
 
 export const useRegister = () => {
   return useMutation({
@@ -34,13 +37,57 @@ export const useRegister = () => {
     },
   });
 };
-export const useResetPass = () => {
+export const useUpdatePassword = () => {
   return useMutation({
-    mutationFn: async ({email}: {email: string}) => {
-      const res = await api.postRaw<ApiResponse>('/user/reset-password', {
-        email,
+    mutationFn: async ({
+      currentPassword,
+      newPassword,
+    }: {
+      currentPassword: string;
+      newPassword: string;
+    }) => {
+      const res = await api.patchRaw<ApiResponse>('client/change-password', {
+        currentPassword,
+        newPassword,
       });
+
       return res;
+    },
+    onSuccess: () => {
+      useAppStore.setState({userActive: true});
+      navigationRef.navigate('Bottom', {screen: 'Articles'});
+    },
+  });
+};
+export const useChangePassword = () => {
+  return useMutation({
+    mutationFn: async ({
+      currentPassword,
+      newPassword,
+    }: {
+      currentPassword: string;
+      newPassword: string;
+    }) => {
+      const res = await api.patchRaw<ApiResponse>('client/change-password', {
+        currentPassword,
+        newPassword,
+      });
+
+      return res;
+    },
+    onSuccess: () => {
+      navigationRef.goBack();
+      showToast({
+        type: 'success',
+        text1: 'Change password success!',
+      });
+    },
+    onError: error => {
+      showToast({
+        type: 'error',
+        text1: 'Error!',
+        text2: error.response?.data.message || 'Please trying!',
+      });
     },
   });
 };
@@ -51,9 +98,26 @@ export const useLogout = () => {
       return res;
     },
     onSettled: () => {
-      useAppStore.setState({userToken: undefined});
+      useAppStore.setState({userToken: undefined, userActive: undefined});
     },
   });
+};
+
+export const userInfoOption = (userToken?: string) => {
+  const token = userToken || useAppStore.getState().userToken;
+  return queryOptions({
+    queryKey: ['userInfo', token].filter(Boolean),
+    queryFn: async () => {
+      const res = await api.get<ApiResponseData<UserInfo>>('client/profile');
+      return res.record;
+    },
+    enabled: !!token,
+  });
+};
+
+export const useQueryUserInfo = () => {
+  const userToken = useAppStore(state => state.userToken);
+  return useQuery(userInfoOption(userToken));
 };
 
 export const useLogin = () => {
@@ -64,17 +128,42 @@ export const useLogin = () => {
       isSaveAccount: boolean;
     }) => {
       const device_token = await messaging().getToken();
-      const res = await api.postRaw<ResponseData<{access_token: string}>>(
-        '/account/login',
-        {
-          ...body,
-          device_token,
-          // device_name: Device.deviceName || 'unknown',
-        },
+
+      const res = await api.postRaw<
+        ApiResponseData<{
+          _id: string;
+          accessToken: string;
+          status: {name: StatusAccount};
+        }>
+      >('auth/login', {
+        ...body,
+        // device_token,
+        // device_name: Device.deviceName || 'unknown',
+      });
+      console.log(
+        '🚀 ~ useLogin ~ res.record.status.name:',
+        res.record.status.name,
       );
 
-      if (res.data.access_token) {
-        useAppStore.setState({userToken: res.data.access_token});
+      if (
+        res.record.accessToken &&
+        res.record.status.name === StatusAccount.ACTIVE
+      ) {
+        useAppStore.setState({
+          userToken: res.record.accessToken,
+          userActive: true,
+        });
+        useQueryUserInfo();
+      }
+      if (
+        res.record.accessToken &&
+        res.record.status.name === StatusAccount.PENDING_VERIFICATION
+      ) {
+        useAppStore.setState({
+          userToken: res.record.accessToken,
+          userActive: false,
+        });
+        navigationRef.navigate('UpdatePass');
       }
       return res;
     },

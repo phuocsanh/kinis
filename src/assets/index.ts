@@ -13,9 +13,10 @@ export const ICONS = {
   ic_apple: require('./icons/init/ic_apple.png'),
   ic_faceId: require('./icons/init/ic_faceId.png'),
   ic_fingerprint: require('./icons/init/ic_fingerprint.png'),
-  ic_toastError: require('./icons/init/ic_toastError.png'),
-  ic_toastSuccess: require('./icons/init/ic_toastSuccess.png'),
-  ic_toastWarning: require('./icons/init/ic_toastWarning.png'),
+  ic_toastError: require('./icons/init/toastErrorIcon.png'),
+  ic_toastSuccess: require('./icons/init/toastSuccessIcon.png'),
+  ic_toastWarning: require('./icons/init/toastWarningIcon.png'),
+  ic_toastInfo: require('./icons/init/toastInfoIcon.png'),
 
   ic_bottomHome: require('./icons/bottom/Home.png'),
   ic_bottomHomeWhite: require('./icons/bottom/HomeWhite.png'),

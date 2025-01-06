@@ -6,6 +6,7 @@ import {FcmMessage} from 'models/common';
 
 type Store = {
   userToken?: string;
+  userActive?: boolean;
   navigationReady: boolean;
   fcmMessage?: FcmMessage;
   saveAccount?: boolean;
@@ -26,6 +27,7 @@ export const useAppStore = create<Store>()(
       partialize: state => ({
         // Các trường sẽ được lưu lại sau khi reload app
         userToken: state.userToken,
+        userActive: state.userActive,
         saveAccount: state.saveAccount,
         accountSaved: state.accountSaved,
       }),

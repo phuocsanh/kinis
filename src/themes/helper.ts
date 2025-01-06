@@ -5,7 +5,7 @@ import {Dimensions} from 'react-native';
 export const DESIGN_WIDTH = 402;
 export const DESIGN_HEIGHT = 874;
 
-export const HEADER_HEIGHT = 120;
+export const HEADER_HEIGHT = 90;
 
 export const {width, height} = Dimensions.get('screen');
 
